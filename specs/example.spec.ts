@@ -1,20 +1,45 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.describe('Playwright Homepage', () => {
+  const homePageURL = 'https://playwright.dev/';
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  test(
+    'As a visitor to the homepage I can see the correct title in my browser',
+    {
+      tag: ['@smoke', '@regression'],
+      annotation: { type: 'homePageURL', description: homePageURL },
+    },
+    async ({ page }) => {
+      await test.step('Given I visit the Playwright homepage', async () => {
+        await page.goto(homePageURL);
+      });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+      await test.step('Then I should see the title of end page ends with "Playwright"', async () => {
+        await expect(page).toHaveTitle(/Playwright$/);
+      });
+    }
+  );
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  test(
+    'As a visitor to the homepage I can navigate to the get started page to see installation instructions @fast',
+    {
+      tag: '@smoke',
+      annotation: { type: 'homePageURL', description: homePageURL },
+    },
+    async ({ page }) => {
+      await test.step('Given I visit the Playwright homepage', async () => {
+        await page.goto(homePageURL);
+      });
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(
-    page.getByRole('heading', { name: 'Installation' })
-  ).toBeVisible();
+      await test.step('When I click the get started link', async () => {
+        await page.getByRole('link', { name: 'Get started' }).click();
+      });
+
+      await test.step('Then I should see the "Installation" heading', async () => {
+        await expect(
+          page.getByRole('heading', { name: 'Installation', exact: true })
+        ).toBeVisible();
+      });
+    }
+  );
 });
