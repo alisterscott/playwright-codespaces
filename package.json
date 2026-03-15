@@ -1,0 +1,24 @@
+{
+  "name": "playwright-codespaces",
+  "version": "1.0.0",
+  "description": "A Playwright Codespaces Template",
+  "homepage": "https://github.com/alisterscott/playwright-codespaces#readme",
+  "bugs": {
+    "url": "https://github.com/alisterscott/playwright-codespaces/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisterscott/playwright-codespaces.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.0"
+  }
+}
